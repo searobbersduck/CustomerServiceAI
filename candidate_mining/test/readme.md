@@ -15,4 +15,4 @@
 ![start client](./img/chatbot_client.gif)
 
 ## 效果
-[效果](./img/chatbot_dialog.gif)
+![效果](./img/chatbot_dialog.gif)
