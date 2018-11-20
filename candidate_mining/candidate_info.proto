@@ -1,0 +1,69 @@
+syntax='proto3';
+
+package ai_custom_service;
+
+option java_multiple_files = true;
+option java_package = "cn.haolie.core.proto";
+option java_outer_classname = "AiProjectProto";
+
+message ChatChildNode {
+    string choice = 1;      // 意向，例：方便
+    repeated string keys = 2;       // 意向关键字，例：'方便', '好','可以聊一下','方便','感兴趣','挺好的','有什么事'
+    ChatNode node = 3;
+    string slot = 4;        // 决定该节点要填写的槽位，如checkname的节点，需要填写name的槽位，此处slot='name'
+}
+
+message ChatNode {
+    string question = 1;    // 问题，例：请问您现在方便吗？
+    int32 question_id = 2;  // 音频id
+    repeated ChatChildNode children = 3;
+};
+
+message ChatTemplate {
+    ChatNode root = 1;
+    int32 id = 2;       // 模版id
+    int32 task_id = 3;  // 任务id
+}
+
+message QuestionRequest {
+    string answer = 1;
+    int32 task_id = 2; // 任务id
+}
+
+message QuestionResponse {
+    enum eStatus {
+        NONE = 0;
+        PROCESSING = 1;
+        CLOSED = 2;
+    };
+    int32 question_id = 1;
+    string question = 2;    // 音频id
+    eStatus status = 3;
+    int32 task_id = 4;  // 任务id
+}
+
+// build template, message ChatTemplate
+// close, return session_content
+// get_question QuestionRequest
+
+message BuildChatTemplateResponse {
+    int32 status = 1;
+}
+
+message CloseChatTemplateRequest {
+    int32 task_id = 1;
+}
+
+message CloseChatTemplateResponse {
+    int32 status = 1;
+}
+
+
+service ChatService {
+  rpc BuildChatTemplate(ChatTemplate) returns (BuildChatTemplateResponse) {}
+  rpc CloseChatTemplate(CloseChatTemplateRequest) returns (CloseChatTemplateResponse) {}
+  rpc GetQuestion(QuestionRequest) returns (QuestionResponse) {}
+}
+
+
+

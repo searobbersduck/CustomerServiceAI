@@ -1,0 +1,19 @@
+syntax='proto3';
+
+package ai_custom_service;
+
+option java_multiple_files = true;
+option java_package = "cn.haolie.core.proto";
+option java_outer_classname = "AiProjectProto";
+
+message PathKeys {
+    repeated string keys = 1;
+}
+
+message ChatNode {
+    string qs = 1;
+    int32 qs_id = 2;
+    map<string, PathKeys> keys = 3;
+    map<string, ChatNode> children = 4;
+}
+
