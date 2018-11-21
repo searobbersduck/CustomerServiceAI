@@ -16,6 +16,9 @@ class ChatBotService(candidate_info_pb2_grpc.ChatServiceServicer):
         self.cur_node = None
         self.slot_dict = {}
 
+    def resetSlot(self):
+        self.slot_dict = {}
+
     def getNode(self, grpc_node):
         node = IntentionTreeNode(grpc_node.question, grpc_node.question_id, grpc_node.slot)
         for child_name in list(grpc_node.children):
@@ -39,6 +42,7 @@ class ChatBotService(candidate_info_pb2_grpc.ChatServiceServicer):
         response = QuestionResponse()
         if self.cur_node is None:
             self.cur_node = self.tree.root
+            self.resetSlot()
         else:
             self.tmp_node = self.cur_node.getNode(request.answer)
             if self.cur_node.slot is not None:
