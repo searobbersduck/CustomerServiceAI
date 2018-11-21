@@ -10,6 +10,8 @@ __pycache__/
 .idea
 *.png
 .DS_Store
+*_pb2.py
+*_pb2_grpc.py
 
 # Distribution / packaging
 .Python
