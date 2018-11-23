@@ -28,12 +28,28 @@ def run():
         response = client.GetQuestion(req)
         machine = '{}\n'.format(response.question)
         if response.status != 2 and response.question != '':
-            answer = input(machine)
+            result = sp_client.synthesis(response.question)
+            play_mp3(result)
+            print(machine)
+            # answer = input(machine)
+            answer = ''
+            result = sp_client.asr(audio_record_rt(5), 'wav', 16000, {"cuid": CUID, "dev_pid": DEV_PID, })
+            if result["err_msg"] == "success.":
+                # print(result["result"])
+                print(result["result"])
+                answer = result['result'][0]
+            else:
+                # print(result["err_msg"])
+                # return ""
+                pass
             print_one = True
         else:
             if print_one == False:
                 continue
             print_one = False
+            if response.question != "":
+                result = sp_client.synthesis(response.question)
+                play_mp3(result)
             print(response.question)
             answer=''
             req = CloseChatTemplateRequest()
