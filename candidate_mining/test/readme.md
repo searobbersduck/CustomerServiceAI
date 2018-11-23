@@ -11,7 +11,7 @@
 1. 编译proto, ***``python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./candidate_info.proto``***
 2. 启动Server, **``python chatbot_server.py``**
 ![start server](./img/chatbot_server.gif)
-3. 启动Client, **``python chatbot_client.py``**
+3. 启动Client, **``python chatbot_client.py``**, 如果要用语音版本，请运行**``python chatbot_client_speech.py``**
 ![start client](./img/chatbot_client.gif)
 
 ## 效果
