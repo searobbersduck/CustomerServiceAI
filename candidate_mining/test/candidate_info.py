@@ -76,17 +76,87 @@ def get_end_email():
               '打电话，也可以加微信，祝您工作愉快！拜拜！'
     return node
 
+# 好的，我这边有好的机会会立刻联系您，祝您工作愉快，拜拜！
+def get_end_happy():
+    node = ChatNode()
+    node.question = '好的，我这边有好的机会会立刻联系您，祝您工作愉快，拜拜！'
+    return node
+
+
 # 继续聊
 def get_intention_next():
     node = ChatNode()
     node.question = '继续聊!'
     return node
 
+# 请问您现在考虑新的工作机会吗？
+def get_intention_searching():
+    node = ChatNode()
+    node.question = '请问您现在考虑新的工作机会吗？'
+    node.slot = 'searching'
+    keys = PathKeys()
+    keys.keys.append('是')
+    keys.keys.append('嗯')
+    keys.keys.append('考虑')
+    node.keys['是'].CopyFrom(keys)
+    keys = PathKeys()
+    keys.keys.append('不是')
+    keys.keys.append('不考虑')
+    node.keys['不是'].CopyFrom(keys)
+    return node
+
+
+# 我想留下您的微信号，您的微信号是手机号吗？
+
+# 那我将我的微信号发到您的邮箱，您方便的时候可以添加下我
+
+
+# 请问您目前的薪资是多少？
+def get_current_salary():
+    node = ChatNode()
+    node.question = '请问您目前的薪资是多少？'
+    node.is_record = True
+    node.slot = 'current_salary'
+    return node
+
+# 请问您期望的薪资是多少？
+def get_expect_salary():
+    node = ChatNode()
+    node.question = '请问您期望的薪资是多少？'
+    node.is_record = True
+    node.slot = 'expect_salary'
+    return node
+
+# 那能简单描述下，您期望什么样的行业或公司吗？
+def get_expect_industry():
+    node = ChatNode()
+    node.question = '那能简单描述下，您期望什么样的行业或公司吗？'
+    node.is_record = True
+    node.slot = 'expect_industry'
+    return node
+
+
 def build_intention_tree():
     node_end_sorry = get_end_sorry()
     node_end_webchat = get_end_webchat()
     node_end_email = get_end_email()
+    node_end_happy = get_end_happy()
     node_check_name = get_intention_checkname()
+    node_check_searching = get_intention_searching()
+
+    # record expect
+    node_check_current_salary = get_current_salary()
+    node_check_current_salary.children['继续'].CopyFrom(node_end_happy)
+    node_check_expect_salary = get_expect_salary()
+    node_check_expect_salary.children['继续'].CopyFrom(node_check_current_salary)
+    node_check_expect_industry = get_expect_industry()
+    node_check_expect_industry.children['继续'].CopyFrom(node_check_expect_salary)
+    node_check_webchat1 = get_intention_checkwebchat()
+    node_check_webchat1.children['是'].CopyFrom(node_check_expect_industry)
+    node_check_webchat1.children['不是'].CopyFrom(node_check_expect_industry)
+    node_check_searching.children['是'].CopyFrom(node_check_webchat1)
+    node_check_searching.children['不是'].CopyFrom(node_end_sorry)
+
 
     node_check_webchat = get_intention_checkwebchat()
     node_check_webchat.children['是'].CopyFrom(node_end_webchat)
@@ -94,7 +164,8 @@ def build_intention_tree():
 
     node_check_convenient = get_initention_convenient()
     node_check_convenient.children['不方便'].CopyFrom(node_check_webchat)
-    node_check_convenient.children['方便'].CopyFrom(get_intention_next())
+    # node_check_convenient.children['方便'].CopyFrom(get_intention_next())
+    node_check_convenient.children['方便'].CopyFrom(node_check_searching)
 
     node_check_name.children['不是'].CopyFrom(node_end_sorry)
     node_check_name.children['是'].CopyFrom(node_check_convenient)

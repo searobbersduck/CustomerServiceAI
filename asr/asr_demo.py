@@ -119,7 +119,7 @@ def audio_interact():
             pass
 
 if __name__ == '__main__':
-    # audio_record('demo.wav', 5)
+    audio_record('demo.wav', 5)
     # client = AipSpeech('14922410','NSChZHWWVwa1BSwZ36Oaya4C','1dd0sxs2LXYRWETZ4gZSSDYDQvM6aROv')
     # aip_get_asrresult(client, 'demo.wav', 'wav')
-    audio_interact()
+    # audio_interact()

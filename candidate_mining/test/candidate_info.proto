@@ -16,6 +16,7 @@ message ChatNode {
     map<string, PathKeys> keys = 3;
     map<string, ChatNode> children = 4;
     string slot = 5;        // 决定该节点要填写的槽位，如checkname的节点，需要填写name的槽位，此处slot='name'
+    bool is_record = 6; // 是否将这个节点的回答整段记录
 };
 
 message ChatTemplate {

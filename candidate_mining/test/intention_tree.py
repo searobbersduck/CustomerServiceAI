@@ -7,7 +7,7 @@ from gensim import corpora, models, similarities
 
 
 class IntentionTreeNode:
-    def __init__(self, qs=None, qs_id=None, slot=None):
+    def __init__(self, qs=None, qs_id=None, slot=None, is_record=None):
         self.qs = qs
         self.children = {}
         self.conds = {}
@@ -22,6 +22,9 @@ class IntentionTreeNode:
         else:
             self.slot = slot
         self.slot_info = None
+        self.is_record = None
+        if slot is not None and slot != '':
+            self.is_record = is_record
 
 
     def insertNode(self, cond, node):
@@ -64,19 +67,24 @@ class IntentionTreeNode:
             val.genModel()
 
     def getNode(self, sent):
-        if self.dictionary is None:
-            return None
-        in_data = jieba.cut(sent)
-        new_doc = ''
-        for d in in_data:
-            new_doc += d + ' '
-        new_vec = self.dictionary.doc2bow(new_doc.split())
-        sim = self.index[self.tfidf[new_vec]]
-        postion = sim.argsort()[-1]
-        key = self.sent2cond[postion]
-        if key in self.children:
-            self.slot_info = key
-            return self.children[key]
+        if self.is_record:
+            self.slot_info = sent
+            if len(self.children.keys()) > 0:
+                return self.children[list(self.children.keys())[0]]
+        else:
+            if self.dictionary is None:
+                return None
+            in_data = jieba.cut(sent)
+            new_doc = ''
+            for d in in_data:
+                new_doc += d + ' '
+            new_vec = self.dictionary.doc2bow(new_doc.split())
+            sim = self.index[self.tfidf[new_vec]]
+            postion = sim.argsort()[-1]
+            key = self.sent2cond[postion]
+            if key in self.children:
+                self.slot_info = key
+                return self.children[key]
         return None
 
     def isLeafNode(self):

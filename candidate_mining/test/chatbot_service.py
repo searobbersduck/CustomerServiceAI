@@ -20,11 +20,14 @@ class ChatBotService(candidate_info_pb2_grpc.ChatServiceServicer):
         self.slot_dict = {}
 
     def getNode(self, grpc_node):
-        node = IntentionTreeNode(grpc_node.question, grpc_node.question_id, grpc_node.slot)
+        node = IntentionTreeNode(grpc_node.question, grpc_node.question_id,
+                                 grpc_node.slot, grpc_node.is_record)
         for child_name in list(grpc_node.children):
             keys_list = list(grpc_node.keys[child_name].keys)
             for key in keys_list:
                 node.insertConds(child_name, key)
+            if len(keys_list) == 0:
+                node.insertConds(child_name, child_name)
             child_node = self.getNode(grpc_node.children[child_name])
             node.insertNode(child_name, child_node)
         return node
