@@ -36,6 +36,7 @@ def get_initention_convenient():
     keys.keys.append('有什么事')
     keys.keys.append('还好')
     keys.keys.append('还行')
+    keys.keys.append('嗯')
     node.keys['方便'].CopyFrom(keys)
     keys = PathKeys()
     keys.keys.append('不方便')
@@ -109,6 +110,10 @@ def get_intention_searching():
 # 我想留下您的微信号，您的微信号是手机号吗？
 
 # 那我将我的微信号发到您的邮箱，您方便的时候可以添加下我
+def get_send_wechat():
+    node = ChatNode()
+    node.question = '那我将我的微信号发到您的邮箱，您方便的时候可以添加下我'
+    return node
 
 
 # 请问您目前的薪资是多少？

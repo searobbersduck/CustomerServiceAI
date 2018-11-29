@@ -1,6 +1,6 @@
 syntax='proto3';
 
-package ai_custom_service;
+package custom_service;
 
 option java_multiple_files = true;
 option java_package = "cn.haolie.core.proto";
@@ -17,6 +17,7 @@ message ChatNode {
     map<string, ChatNode> children = 4;
     string slot = 5;        // 决定该节点要填写的槽位，如checkname的节点，需要填写name的槽位，此处slot='name'
     bool is_record = 6; // 是否将这个节点的回答整段记录
+    bool need_answer = 7; // 是否需要候选人回答，例如，通知性的语句，不需要回答，可以直接Query下一个问题
 };
 
 message ChatTemplate {
@@ -40,6 +41,7 @@ message QuestionResponse {
     string question = 2;    // 音频id
     eStatus status = 3;
     int32 task_id = 4;  // 任务id
+    bool need_answer = 5;
 }
 
 // build template, message ChatTemplate

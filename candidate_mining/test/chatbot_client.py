@@ -9,22 +9,32 @@ import candidate_info_pb2, candidate_info_pb2_grpc
 from candidate_info import *
 
 from speech_utils import *
+import argparse
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--task_id', type=int, default=0)
+    return parser.parse_args()
+
+opts = parse_args()
 
 _HOST = 'localhost'
 _PORT = '8080'
+# _HOST = '0.0.0.0'
+# _PORT = '26530'
 
 def run():
     conn = grpc.insecure_channel(_HOST + ':' + _PORT)
     client = candidate_info_pb2_grpc.ChatServiceStub(channel=conn)
     template_tree = build_intention_tree()
+    template_tree.task_id = opts.task_id
     response = client.BuildChatTemplate(template_tree)
     answer = ''
     print_one = True
     while True:
         req = QuestionRequest()
         req.answer = answer
-        req.task_id = 500
+        req.task_id = opts.task_id
         response = client.GetQuestion(req)
         machine = '{}\n'.format(response.question)
         if response.status != 2 and response.question != '':
@@ -37,7 +47,7 @@ def run():
             print(response.question)
             answer=''
             req = CloseChatTemplateRequest()
-            req.task_id = 200
+            req.task_id = opts.task_id
             response = client.CloseChatTemplate(req)
             print('====> 本次会话获取信息：')
             print(response.info.info)
