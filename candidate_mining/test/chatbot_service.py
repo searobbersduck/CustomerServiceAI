@@ -48,6 +48,7 @@ class ChatBotService(candidate_info_pb2_grpc.ChatServiceServicer):
             self.cur_node = self.tree.root
             self.resetSlot()
         else:
+            print(request.answer)
             self.tmp_node = self.cur_node.getNode(request.answer)
             if self.cur_node.slot is not None:
                 self.slot_dict[self.cur_node.slot] = self.cur_node.slot_info
