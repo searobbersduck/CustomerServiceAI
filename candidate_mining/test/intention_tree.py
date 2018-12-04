@@ -7,7 +7,7 @@ from gensim import corpora, models, similarities
 
 
 class IntentionTreeNode:
-    def __init__(self, qs=None, qs_id=None, slot=None, is_record=None):
+    def __init__(self, qs=None, qs_id=None, slot=None, is_record=None, need_answer=False):
         self.qs = qs
         self.children = {}
         self.conds = {}
@@ -25,6 +25,7 @@ class IntentionTreeNode:
         self.is_record = None
         if slot is not None and slot != '':
             self.is_record = is_record
+        self.need_answer = need_answer
 
 
     def insertNode(self, cond, node):

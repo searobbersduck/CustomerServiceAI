@@ -21,7 +21,7 @@ class ChatBotService(candidate_info_pb2_grpc.ChatServiceServicer):
 
     def getNode(self, grpc_node):
         node = IntentionTreeNode(grpc_node.question, grpc_node.question_id,
-                                 grpc_node.slot, grpc_node.is_record)
+                                 grpc_node.slot, grpc_node.is_record, grpc_node.need_answer)
         for child_name in list(grpc_node.children):
             keys_list = list(grpc_node.keys[child_name].keys)
             for key in keys_list:
