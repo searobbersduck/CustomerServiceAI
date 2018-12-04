@@ -7,7 +7,7 @@ import candidate_info_pb2, candidate_info_pb2_grpc
 from chatbot_service import ChatBotService
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
-_HOST = 'localhost'
+_HOST = '0.0.0.0'
 _PORT = '8080'
 
 def serve():
