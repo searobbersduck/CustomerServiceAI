@@ -30,7 +30,7 @@ class ChatBotService(candidate_info_pb2_grpc.ChatServiceServicer):
                 node.insertConds(child_name, child_name)
             child_node = self.getNode(grpc_node.children[child_name])
             node.insertNode(child_name, child_node)
-            print('insert node:{}\t\t{}'.format(child_name, child_node.question))
+            print('insert node:{}\t\t{}'.format(child_name, grpc_node.children[child_name]))
         return node
 
     def BuildChatTemplate(self, request, context):
