@@ -32,3 +32,7 @@
 
 ## 效果
 ![效果](./candidate_mining/test/img/chatbot_dialog.gif)
+
+## freeswitch + mrcp server
+1. [mrcp-plugin-with-freeswitch](https://github.com/wangkaisine/mrcp-plugin-with-freeswitch/blob/master/README.md)
+2. [接入百度语音的mrcp server](https://ai.baidu.com/docs#/BICC-ASR-MrcpServer/top)
