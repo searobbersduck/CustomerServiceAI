@@ -40,4 +40,9 @@ python qs_matching.py test_get_similarity 请问我某某年工作经验，应�
 python qs_matching.py test_get_similarity 为什么要了解我的薪资？
 python qs_matching.py test_get_similarity 什么机会
 python qs_matching.py test_get_similarity 啥机会
+python qs_matching.py test_get_similarity 嗯
+python qs_matching.py test_get_similarity 方便
+python qs_matching.py test_get_similarity 嗯，方便
+python qs_matching.py test_get_similarity 嗯，不方便
+python qs_matching.py test_get_similarity 不方便
 #python qs_matching.py test_get_similarity 我就想试试句子长度很长时，你的识别速度怎么样，会不会很慢啊，如果慢，会是什么原因呢？

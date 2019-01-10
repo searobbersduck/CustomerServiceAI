@@ -1,0 +1,20 @@
+syntax='proto3';
+
+package ai_custom_service;
+
+option java_multiple_files = true;
+option java_package = "cn.haolie.core.proto";
+option java_outer_classname = "AiProjectProto";
+
+message QuestionText {
+    string qs = 1; // 问题，例如：请问您是哪位？
+}
+
+message QuestionResponse {
+    string result = 1;
+}
+
+service ChatAlgoService {
+    rpc GetQuestionType(QuestionText) returns (QuestionResponse) {}
+}
+

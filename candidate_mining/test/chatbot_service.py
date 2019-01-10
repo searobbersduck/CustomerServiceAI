@@ -65,7 +65,7 @@ class ChatBotService(candidate_info_pb2_grpc.ChatServiceServicer):
             else:
                 response.status = 1
             response.task_id = request.task_id
-            response.need_answer = self.cur_node.need_answer
+            #response.need_answer = self.cur_node.need_answer
         print(response.question)
         return response
 

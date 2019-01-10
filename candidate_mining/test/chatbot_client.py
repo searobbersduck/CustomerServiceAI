@@ -19,7 +19,9 @@ def parse_args():
 opts = parse_args()
 
 _HOST = '172.16.56.183'
-_PORT = '18080'
+_HOST = '0.0.0.0'
+_HOST = '192.168.32.19'
+_PORT = '20180'
 # _HOST = '172.16.52.70'
 # _PORT = '20801'
 # _HOST = '0.0.0.0'

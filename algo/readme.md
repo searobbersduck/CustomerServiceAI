@@ -1,4 +1,7 @@
 # 语义匹配
+## 启动bert服务
+***```bert-serving-start -model_dir ./model/chinese_L-12_H-768_A-12/ -max_seq_len 50```***
+## 
 ***```qs_matching```***中试验的匹配算法利用了[bert-as-service](https://github.com/hanxiao/bert-as-service)提供的模型；
 1. 代码中列举了如下需要匹配的类型：
 ```python
