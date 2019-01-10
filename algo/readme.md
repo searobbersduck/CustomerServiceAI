@@ -1,7 +1,6 @@
 # 语义匹配
 ## 启动bert服务
 ***```bert-serving-start -model_dir ./model/chinese_L-12_H-768_A-12/ -max_seq_len 50```***
-## 
 ***```qs_matching```***中试验的匹配算法利用了[bert-as-service](https://github.com/hanxiao/bert-as-service)提供的模型；
 1. 代码中列举了如下需要匹配的类型：
 ```python
@@ -51,3 +50,9 @@ choice_map = {
 [为什么要了解我的薪资？ | 你要推荐哪家公司 | COMPANY] : 0.901
 [什么机会 | 钱多少 | SALARY] :  0.895
 ```
+
+## 利用脚本启动
+***```./start_chatbot_algo_service.sh```***
+
+启动client：
+***```python qs_matching_client.py```***
