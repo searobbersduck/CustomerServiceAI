@@ -5,7 +5,7 @@ import syntax_algo_pb2, syntax_algo_pb2_grpc
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _HOST = '0.0.0.0'
-_PORT = '11000'
+_PORT = '11001'
 
 def run():
     conn = grpc.insecure_channel(_HOST + ':' + _PORT)

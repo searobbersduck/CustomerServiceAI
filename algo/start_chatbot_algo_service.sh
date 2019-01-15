@@ -1,5 +1,6 @@
 # 杀掉已存在服务
 ps -ef | grep bert-serving- | grep -v grep | awk '{print $2}' | xargs kill
+ps -ef | grep qs_matching_server | grep -v grep | awk '{print $2}' | xargs kill
 # 启动服务
 source deactivate
 source activate py36

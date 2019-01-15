@@ -8,7 +8,7 @@ from qs_matching_service import ChatBotAlgoService
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _HOST = '0.0.0.0'
-_PORT = '11000'
+_PORT = '11001'
 
 def serve():
     grpcServer = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
