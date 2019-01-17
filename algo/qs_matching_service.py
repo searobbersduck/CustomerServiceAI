@@ -22,7 +22,7 @@ class ChatBotAlgoService(syntax_algo_pb2_grpc.ChatAlgoServiceServicer):
             'WORKING_STATUS': ['工作累吗？'],
             'YOUR_TARGET':['你有什么事？','有何贵干啊?'],
             'BYE':['再见','拜拜,', '拜拜', '没啥兴趣，拜拜'],
-            'CALL_LATER':['晚点再打过来'],
+            'CALL_LATER':['晚点再打过来', '你可以晚上再打给我吗'],
             'NO_MATCH': ['你怎么知道', '你怎么知道我在找工作', '你怎么知道我手机号', '你怎么知道我联系方式的']
         }
         self.choice_list_raw = []

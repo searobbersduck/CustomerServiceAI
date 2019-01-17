@@ -12,7 +12,7 @@ from speech_utils import *
 
 
 _HOST = 'localhost'
-_PORT = '8080'
+_PORT = '20801'
 
 def run():
     conn = grpc.insecure_channel(_HOST + ':' + _PORT)
