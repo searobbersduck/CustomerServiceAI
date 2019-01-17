@@ -23,6 +23,7 @@ class ChatBotAlgoService(syntax_algo_pb2_grpc.ChatAlgoServiceServicer):
             'YOUR_TARGET':['你有什么事？','有何贵干啊?'],
             'BYE':['再见','拜拜,', '拜拜'],
             'CALL_LATER':['晚点再打过来'],
+            'NO_MATCH': ['你怎么知道', '你怎么知道我在找工作', '你怎么知道我手机号', '你怎么知道我联系方式的']
         }
         self.choice_list_raw = []
         self.choice_id2tag = {-1: 'NO_MATCH'}
