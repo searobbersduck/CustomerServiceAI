@@ -36,6 +36,9 @@ class ChatBotAlgoService(syntax_algo_pb2_grpc.ChatAlgoServiceServicer):
                     cnt_i += 1
         self.choice_list = [' '.join(list(i)) for i in self.choice_list_raw]
         self.choice_arr = self.bc.encode(self.choice_list)
+        # collection qs info
+        self.collection_info = []
+        self.collection_info.append('test\ttest')
         print('start qs matching service ...')
 
     def get_similarity(self, qs):
@@ -61,7 +64,14 @@ class ChatBotAlgoService(syntax_algo_pb2_grpc.ChatAlgoServiceServicer):
         response = syntax_algo_pb2.QuestionResponse()
         response.result = result
         print('{}\t{}'.format(qs, result))
+        self.collection_info.append('{}\t{}'.format(qs, result))
+        if (len(self.collection_info) > 1000):
+            with open('./qs_collection.txt', 'a', encoding='utf8') as f:
+                f.write('\n'.join(self.collection_info))
+            self.collection_info = []
         return response
+
+
 
 def test_ChatBotAlgoService():
     ser = ChatBotAlgoService()
