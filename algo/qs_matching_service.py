@@ -66,6 +66,8 @@ class ChatBotAlgoService(syntax_algo_pb2_grpc.ChatAlgoServiceServicer):
         result = self.choice_id2tag[index]
         response = syntax_algo_pb2.QuestionResponse()
         response.result = result
+        if '拜拜' in qs or '再见' in qs:
+            response.result = 'BYE'
         print('{}\t{}'.format(qs, result))
         self.collection_info.append('{}\t{}'.format(qs, result))
         if (len(self.collection_info) > 1000):
