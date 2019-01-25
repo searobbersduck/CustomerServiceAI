@@ -15,7 +15,7 @@ class ChatBotAlgoService(syntax_algo_pb2_grpc.ChatAlgoServiceServicer):
         self.bc = BertClient()
         self.choice_map = {
             'WHO': ['哪位?', '你是哪位?','请问哪位？'],
-            'YOUR_COMPANY': ['你是哪家公司的', '你哪家公司的'],#, '你刚说的哪家公司来着'],
+            'YOUR_COMPANY': ['你是哪家公司的', '你哪家公司的', '你是哪里的猎头'],#, '你刚说的哪家公司来着'],
             'YOUR_CARRER': ['你是做什么的', '你做啥的', '干啥的'],
             'SALARY': ['薪资大概多少', '薪酬福利怎么样', '工资多少', '待遇怎么样', '钱多少'],
             'COMPANY': ['哪里的工作', '哪家公司', '你要推荐哪家公司', '在哪里', '什么样的工作机会', '什么机会','你那有什么工作机会', '有什么推荐的吗'],
