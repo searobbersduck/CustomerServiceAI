@@ -39,3 +39,6 @@
 
 
 ## [利用bert-as-service做语义匹配](./algo/readme.md)
+
+## 闲聊式机器人
+1. [github连接](https://github.com/searobbersduck/chatbot)
