@@ -56,3 +56,10 @@ choice_map = {
 
 启动client：
 ***```python qs_matching_client.py```***
+
+## 可能遇到的错误
+1. [UnicodeEncodeError](https://www.e-learn.cn/content/wangluowenzhang/1547559)
+``
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+``
