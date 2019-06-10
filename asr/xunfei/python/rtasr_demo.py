@@ -21,9 +21,10 @@ app_id = "5be0fbcb"
 api_key = "9502d486f048d76978099f0646fe4f52"
 file_path = "./test_1.pcm"
 file_path = '/Users/higgs/tmpxxx/718895a9-31b3-4e0d-85fb-cad14bbad0d6.wav'
-file_path = '111.wav'
+file_path = 'all.wav'
 # file_path = '/Users/higgs/beast/data/audio/兔司机与候选人首次沟通录音/0f73049d-c131-4b83-b7f0-c73a34eea77c.wav'
-# file_path = '1.pc'
+file_path = '1.wav'
+# file_path = 'aa826fc3-36c0-4c11-bd62-395f767ace61.wav'
 end_tag = "{\"end\": true}"
 
 def parse_rt_json(s_json):

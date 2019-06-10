@@ -27,7 +27,7 @@ then
 		echo $(basename $file)
 		ffmpeg -y  -i $file -acodec pcm_s16le -f s16le -ac 2 -ar 16000 ~/tmpxxx_c1_all/$(basename $file)
 		# 先利用ffmpeg将压缩的wav文件转换为，python能够读取的非压缩形式，采样率设置为16000，便于语音识别使用
-		ffmpeg -i $file -acodec pcm_s16le -ar 16000 -y ~/tmpxxx/$(basename $file)
+		ffmpeg -i $file -acodec pcm_s16le -ar 16000 -ac 1 -y ~/tmpxxx/$(basename $file)
 	done
 fi
 

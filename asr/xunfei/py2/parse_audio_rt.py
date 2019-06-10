@@ -28,6 +28,7 @@ api_key = "9502d486f048d76978099f0646fe4f52"
 end_tag = "{\"end\": true}"
 
 sentences = []
+streams = []
 
 def parse_rt_json(s_json):
     '''
@@ -42,15 +43,32 @@ def parse_rt_json(s_json):
         data = res_dict['data']
         data_dict = json.loads(data)
         rt_list = data_dict['cn']['st']['rt']
+        sign_flag = False
         if int(data_dict['cn']['st']['type']) == 0:
+            first = True
             for rt in rt_list:
                 ws_list = rt['ws']
                 sent = ''
                 for ws in ws_list:
+                    if first:
+                        sign_flag = ws['cw'][0]['wp'] = 'p'
+                        first = False
                     sent += ws['cw'][0]['w']
                 # print(sent)
     if sent != '':
+        # if sign_flag:
+        #     if len(sentences) >= 1:
+        #         sentences[-1] = sentences[-1]+sent[0]
+        #         sentences.append(sent[1:])
+        #         print(sentences[-1])
+        #     else:
+        #         sentences.append(sent)
+        #         print(sent)
+        # else:
+        #     sentences.append(sent)
+        #     print(sent)
         sentences.append(sent)
+        print(sent)
     return action, sent
 
 class Client():
@@ -101,6 +119,7 @@ class Client():
 
                 if result_dict["action"] == "result":
                     parse_rt_json(result_dict)
+                    streams.append(result_dict)
                     # print "rtasr result: " + result
 
                 if result_dict["action"] == "error":
@@ -115,13 +134,22 @@ class Client():
         print "connection closed"
 
 def paser_audio_rt(infile, outdir):
+    print('\n')
+    print('====> begin processing {}'.format(infile))
+    print('output directory: {}'.format(outdir))
     client = Client()
     client.send(infile)
     if not os.path.isdir(outdir):
         os.makedirs(outdir)
     basename = os.path.basename(infile).split('.')[0]+'.txt'
+    basename_ss = os.path.basename(infile).split('.')[0]+'.json'
     with open(os.path.join(outdir, basename), 'w') as f:
         f.write('\n'.join(sentences))
+        print('write {} sentences'.format(len(sentences)))
+    with open(os.path.join(outdir, basename_ss), 'w') as f:
+        f.write(json.dumps(streams))
+    print('====> end!')
+    print('\n')
 
 if __name__ == '__main__':
     fire.Fire()
