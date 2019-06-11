@@ -51,7 +51,7 @@ def parse_rt_json(s_json):
                 sent = ''
                 for ws in ws_list:
                     if first:
-                        sign_flag = ws['cw'][0]['wp'] = 'p'
+                        sign_flag = ws['cw'][0]['wp'] == 'p'
                         first = False
                     sent += ws['cw'][0]['w']
                 # print(sent)

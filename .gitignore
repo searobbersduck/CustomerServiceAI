@@ -13,6 +13,7 @@ __pycache__/
 *_pb2.py
 *_pb2_grpc.py
 *.wav
+asr/xunfei/py2/result
 
 # Distribution / packaging
 .Python
