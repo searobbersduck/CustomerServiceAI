@@ -11,7 +11,7 @@ config = lm_model.BASE_PARAMS
 tokenizer = tokenization.FullTokenizer('./model/vocab.txt')
 config['vocab_size'] = len(tokenizer.vocab)
 config['max_length'] = 64
-config['batch_size'] = 4
+config['batch_size'] = 64
 vocab_file = './model/vocab.txt'
 train_file = './train.tfrecord'
 
@@ -55,7 +55,7 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
             sess.run(tf.global_variables_initializer())
 
  def main():
- 	train(train_file, vocab_file, config, './log')
+     train(train_file, vocab_file, config, './log')
 
  if __name__ == '__main__':
- 	main()
+     main()
