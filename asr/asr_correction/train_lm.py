@@ -51,7 +51,7 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
                     if (step+1)%100 == 0:
                         print('====> [{}/{}]\tloss:{.3f}'.format(step, train_steps, loss_val))
                 except:
-                    sv.saver.save(sess, './final_model', global_step=(step+1))
+                    sv.saver.save(sess, './log/final_model', global_step=(step+1))
             sess.run(tf.global_variables_initializer())
 
 def main():
