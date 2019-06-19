@@ -14,6 +14,8 @@ __pycache__/
 *_pb2_grpc.py
 *.wav
 asr/xunfei/py2/result
+*.tfrecord
+log
 
 # Distribution / packaging
 .Python
