@@ -36,6 +36,7 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
         if pretrained:
             partialSaver = mtransfer.partial_transfer(pretrained)
         sv = tf.train.Supervisor(graph=graph, logdir=log_dir)
+        best_loss = 10000
         with sv.managed_session(master='') as sess:
             train_steps = config['train_steps']
 #             sess.run(tf.global_variables_initializer())
@@ -50,6 +51,10 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
                     loss_val, _ = sess.run([loss, train_op], feed_dict=feed_dicts)
                     if (step+1)%100 == 0:
                         print('====> [{}/{}]\tloss:{:.3f}'.format(step, train_steps, loss_val))
+                    if best_loss > loss_val:
+                        best_loss = loss_val
+                        sv.saver.save(sess, './log/best_model', global_step=(step+1))
+                        print('====> save model {}'.format((step+1)))
                 except Exception as e:
                     print(e)
                     sv.saver.save(sess, './log/final_model', global_step=(step+1))
