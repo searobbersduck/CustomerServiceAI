@@ -40,7 +40,7 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
             train_steps = config['train_steps']
 #             sess.run(tf.global_variables_initializer())
             if partialSaver:
-                partialSaver.restore(sess, pretraied)
+                partialSaver.restore(sess, pretrained)
             for step in range(train_steps):
                 if sv.should_stop():
                     break
@@ -54,8 +54,8 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
                     sv.saver.save(sess, './final_model', global_step=(step+1))
             sess.run(tf.global_variables_initializer())
 
- def main():
-     train(train_file, vocab_file, config, './log')
+def main():
+    train(train_file, vocab_file, config, './log')
 
- if __name__ == '__main__':
-     main()
+if __name__ == '__main__':
+    main()
