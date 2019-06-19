@@ -48,7 +48,7 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
                     inputs = sess.run(train_inputs)
                     feed_dicts = make_feed_dict(model, inputs)
                     loss_val, _ = sess.run([loss, train_op], feed_dict=feed_dicts)
-                    if (step+1)%100:
+                    if (step+1)%100 == 0:
                         print('====> [{}/{}]\tloss:{.3f}'.format(step, train_steps, loss_val))
                 except:
                     sv.saver.save(sess, './final_model', global_step=(step+1))
