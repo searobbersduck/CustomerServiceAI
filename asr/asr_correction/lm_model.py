@@ -203,6 +203,6 @@ class LMModel:
         loss = loss * tf.to_float(weights)
         loss = tf.reduce_sum(loss, axis=1)
         loss = loss/tf.to_float(self.inp_len)
-        loss = tf.reduce_mean(loss)
+        loss = tf.reduce_mean(loss, name='lm_score')
         return loss
 
