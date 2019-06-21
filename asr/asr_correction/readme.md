@@ -3,6 +3,8 @@
 1. [TensorFlow保存和恢复模型的方法总结](https://www.yueye.org/2017/summary-of-save-and-restore-models-in-tensorflow.html)
 2. [【Tensorflow】报错：Cannot interpret feed_dict key as Tensor: The name 'x' refers to an operation, # > no](https://blog.csdn.net/ztf312/article/details/72859075)
 3. [保存和恢复](https://www.tensorflow.org/guide/saved_model#cli_to_inspect_and_execute_savedmodel)
+4. [史上最简洁使用Tensorflow_model_server](https://blog.csdn.net/ljm5000/article/details/84069934)
+5. [TensorFlow端到端旋风教程](https://www.jianshu.com/p/bb4993acc2b9)
 
 '''
 graph = tf.Graph()
