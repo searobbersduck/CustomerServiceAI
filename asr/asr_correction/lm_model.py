@@ -40,7 +40,7 @@ BASE_PARAMS = defaultdict(
     learning_rate=0.01,
     learning_rate_decay_rate=1.0,
     learning_rate_warmup_steps=16000,
-    train_steps=180000,
+    train_steps=600000,
 
     # Optimizer params
     optimizer_adam_beta1=0.9,
