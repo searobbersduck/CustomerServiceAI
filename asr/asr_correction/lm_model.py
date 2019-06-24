@@ -209,8 +209,8 @@ class LMModel:
 		loss = tf.reduce_mean(loss, name='lm_score_train')
 		return loss
 
-	def loss_predict(self):
-		loss = self.predict(False)
-		loss = tf.reduce_mean(loss, name='lm_score')
-		return loss
+    def loss_predict(self):
+	loss = self.predict(False)
+	loss = tf.reduce_mean(loss, name='lm_score')
+	return loss
 
