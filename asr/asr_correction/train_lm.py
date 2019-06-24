@@ -30,7 +30,8 @@ def train(train_file, vocab_file, config, log_dir, pretrained=None):
         train_iterator = d.make_one_shot_iterator()
         train_inputs = train_iterator.get_next()
         model = lm_model.LMModel(config, config['max_length'])
-        loss = model.loss(True)
+        loss = model.loss_train(True)
+        loss_predict = model.loss_predict()
         train_op = create_optimizer(loss, config['learning_rate'], config['train_steps'], config['learning_rate_warmup_steps'], False)
         partialSaver = None
         if pretrained:

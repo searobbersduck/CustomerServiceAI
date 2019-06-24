@@ -6,7 +6,9 @@
 4. [史上最简洁使用Tensorflow_model_server](https://blog.csdn.net/ljm5000/article/details/84069934)
 5. [TensorFlow端到端旋风教程](https://www.jianshu.com/p/bb4993acc2b9)
 
+
 '''
+
 graph = tf.Graph()
 
 with graph.as_default():
@@ -26,6 +28,7 @@ with graph.as_default():
         print(score_val)
         tf.saved_model.simple_save(sess, './3', inputs={'inp':inp, 'inp_len':inp_len}, outputs={'score':score})
         tf.train.Saver().save(sess, './sss')
+
 
 '''
 
