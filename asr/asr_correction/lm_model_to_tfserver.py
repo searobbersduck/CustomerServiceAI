@@ -4,6 +4,10 @@ import tensorflow as tf
 import os
 import fire
 
+'''
+usage: python lm_model_to_tfserver.py convert_tfmodel_to_tfservermodel ./log/model.ckpt-127188.meta ./log/model.ckpt-127188 4
+'''
+
 def convert_tfmodel_to_tfservermodel(meta_file, ckpt_file, version):
     graph = tf.Graph()
     with graph.as_default():

@@ -13,6 +13,11 @@ import tokenization
 import numpy as np
 import fire
 
+'''
+usage: python lm_client.py get_score '今天天气好晴朗，处处好风光' 64
+
+'''
+
 server = '172.16.52.70:8500'
 
 host, port = server.split(':')
