@@ -1,5 +1,12 @@
 # 如何使用
 
+1. 训练模型`train_lm.py`
+2. 将模型转换为能部署到`tf serving`上的模型：`lm_model_to_tfmodel.py`
+3. 客户端实例：`lm_client.py`
+
+
+# 
+
 1. [TensorFlow保存和恢复模型的方法总结](https://www.yueye.org/2017/summary-of-save-and-restore-models-in-tensorflow.html)
 2. [【Tensorflow】报错：Cannot interpret feed_dict key as Tensor: The name 'x' refers to an operation, # > no](https://blog.csdn.net/ztf312/article/details/72859075)
 3. [保存和恢复](https://www.tensorflow.org/guide/saved_model#cli_to_inspect_and_execute_savedmodel)
@@ -35,3 +42,4 @@ with graph.as_default():
 '''
 saved_model_cli show ./3 --all
 '''
+
