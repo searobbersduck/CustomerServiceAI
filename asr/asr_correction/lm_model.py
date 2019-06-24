@@ -213,6 +213,6 @@ class LMModel:
 
 	def loss_predict(self):
 		loss = self.predict(False)
-		loss = tf.reduce_mean(loss, name='lm_score_predict')
+		loss = tf.reduce_mean(loss, name='lm_score')
 		return loss
 
