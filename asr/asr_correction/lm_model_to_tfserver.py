@@ -20,7 +20,7 @@ def convert_tfmodel_to_tfservermodel(meta_file, ckpt_file, version):
             inp_len = graph.get_tensor_by_name('inp_len:0')
             # score_val = sess.run(score, {inp: np_inp, inp_len: np_len})
             # print(score_val)
-            tf.saved_model.simple_save(sess, version, inputs={'inp': inp, 'inp_len': inp_len}, outputs={'score': score})
+            tf.saved_model.simple_save(sess, './{}'.format(version), inputs={'inp': inp, 'inp_len': inp_len}, outputs={'score': score})
             # tf.train.Saver().save(sess, './sss')
             print('save tf serving model finished!')
 
