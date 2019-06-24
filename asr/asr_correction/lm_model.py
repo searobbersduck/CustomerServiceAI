@@ -14,49 +14,49 @@ import collections
 
 
 BASE_PARAMS = defaultdict(
-    lambda: None,  # Set default value to None.
+	lambda: None,  # Set default value to None.
 
-    # Input params
-    default_batch_size=512,  # Maximum number of tokens per batch of examples.
-    default_batch_size_tpu=32768,
-    max_length=64,  # Maximum number of tokens per example.
+	# Input params
+	default_batch_size=512,  # Maximum number of tokens per batch of examples.
+	default_batch_size_tpu=32768,
+	max_length=64,  # Maximum number of tokens per example.
 
-    # Model params
-    initializer_gain=2.0,  # Used in trainable variable initialization.
-    initializer_range = 0.02,
-    vocab_size=32003,  # Number of tokens defined in the vocabulary file.
-    hidden_size=200,  # Model dimension in the hidden layers.
-    num_hidden_layers=6,  # Number of layers in the encoder and decoder stacks.
-    num_heads=8,  # Number of heads to use in multi-headed attention.
-    filter_size=800,  # Inner layer dimension in the feedforward network.
+	# Model params
+	initializer_gain=2.0,  # Used in trainable variable initialization.
+	initializer_range = 0.02,
+	vocab_size=32003,  # Number of tokens defined in the vocabulary file.
+	hidden_size=200,  # Model dimension in the hidden layers.
+	num_hidden_layers=6,  # Number of layers in the encoder and decoder stacks.
+	num_heads=8,  # Number of heads to use in multi-headed attention.
+	filter_size=800,  # Inner layer dimension in the feedforward network.
 
-    # Dropout values (only used when training)
-    layer_postprocess_dropout=0.1,
-    attention_dropout=0.1,
-    relu_dropout=0.1,
+	# Dropout values (only used when training)
+	layer_postprocess_dropout=0.1,
+	attention_dropout=0.1,
+	relu_dropout=0.1,
 
-    # Training params
-    label_smoothing=0.1,
-    learning_rate=0.01,
-    learning_rate_decay_rate=1.0,
-    learning_rate_warmup_steps=16000,
-    train_steps=180000,
+	# Training params
+	label_smoothing=0.1,
+	learning_rate=0.01,
+	learning_rate_decay_rate=1.0,
+	learning_rate_warmup_steps=16000,
+	train_steps=180000,
 
-    # Optimizer params
-    optimizer_adam_beta1=0.9,
-    optimizer_adam_beta2=0.997,
-    optimizer_adam_epsilon=1e-09,
+	# Optimizer params
+	optimizer_adam_beta1=0.9,
+	optimizer_adam_beta2=0.997,
+	optimizer_adam_epsilon=1e-09,
 
-    # Default prediction params
-    extra_decode_length=90,
-    beam_size=4,
-    alpha=0.6,  # used to calculate length normalization initializer_rangen beam search
-    
-    num_types = 3, # how many id types
-    # TPU specific parameters
-    use_tpu=False,
-    static_batch=False,
-    allow_ffn_pad=True,
+	# Default prediction params
+	extra_decode_length=90,
+	beam_size=4,
+	alpha=0.6,  # used to calculate length normalization initializer_rangen beam search
+
+	num_types = 3, # how many id types
+	# TPU specific parameters
+	use_tpu=False,
+	static_batch=False,
+	allow_ffn_pad=True,
 )
 
 class InputExample:
@@ -68,16 +68,16 @@ class DataProcessor(object):
   """Base class for data converters for sequence classification data sets."""
 
   def get_train_examples(self, data_file):
-    """Gets a collection of `InputExample`s for the train set."""
-    raise NotImplementedError()
+	"""Gets a collection of `InputExample`s for the train set."""
+	raise NotImplementedError()
 
   def get_dev_examples(self, data_file):
-    """Gets a collection of `InputExample`s for the dev set."""
-    raise NotImplementedError()
+	"""Gets a collection of `InputExample`s for the dev set."""
+	raise NotImplementedError()
 
   def get_test_examples(self, data_file):
-    """Gets a collection of `InputExample`s for prediction."""
-    raise NotImplementedError()
+	"""Gets a collection of `InputExample`s for prediction."""
+	raise NotImplementedError()
 
 class LMDataProcessor(DataProcessor):
 	def get_train_examples(self, data_file):
@@ -178,22 +178,20 @@ class LMDataSet:
 			d = d.repeat()
 			d = d.shuffle(buffer_size=100)
 		d = d.apply(tf.data.experimental.map_and_batch(
-            lambda record: _decode_record(record, self.name_to_features),
-            batch_size = batch_size,
-            drop_remainder=drop_remainder
-        ))
+			lambda record: _decode_record(record, self.name_to_features),
+			batch_size = batch_size,
+			drop_remainder=drop_remainder
+		))
 		return d
 
-
-
 class LMModel:
-    def __init__(self, config, max_len):
-        self.config = config
-        self.max_len = max_len
-        self.inp = tf.placeholder(tf.int32, shape=[None, max_len], name='inp')
-        self.inp_len = tf.placeholder(tf.int32, shape=[None], name='inp_len')
-    
-    def predict(self, is_training):
+	def __init__(self, config, max_len):
+		self.config = config
+		self.max_len = max_len
+		self.inp = tf.placeholder(tf.int32, shape=[None, max_len], name='inp')
+		self.inp_len = tf.placeholder(tf.int32, shape=[None], name='inp_len')
+
+	def predict(self, is_training):
 		self.transformer = transformer.Transformer(self.config, is_training)
 		self.attention_bias = model_utils.get_decoder_self_attention_bias(self.max_len)
 		encoder_outputs = self.transformer.encode(self.inp, self.attention_bias)
@@ -206,10 +204,10 @@ class LMModel:
 		loss = loss / tf.to_float(self.inp_len)
 		return loss
 
-    def loss_train(self, is_training):
-        loss = self.predict(is_training)
-        loss = tf.reduce_mean(loss, name='lm_score_train')
-        return loss
+	def loss_train(self, is_training):
+		loss = self.predict(is_training)
+		loss = tf.reduce_mean(loss, name='lm_score_train')
+		return loss
 
 	def loss_predict(self):
 		loss = self.predict(False)
