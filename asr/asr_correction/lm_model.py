@@ -192,16 +192,17 @@ class LMModel:
         self.inp_len = tf.placeholder(tf.int32, shape=[None], name='inp_len')
 
     def predict(self, is_training):
-        self.transformer = transformer.Transformer(self.config, is_training)
-        self.attention_bias = model_utils.get_decoder_self_attention_bias(self.max_len)
-        encoder_outputs = self.transformer.encode(self.inp, self.attention_bias)
-        logits = self.transformer.embedding_softmax_layer.linear(encoder_outputs)
-        loss = model_utils.soft_cross_entropy_loss(logits, self.inp, self.config['label_smoothing'],
-                                                   self.config['vocab_size'])
-        weights = tf.sequence_mask(self.inp_len, self.max_len, dtype=tf.int32)
-        loss = loss * tf.to_float(weights)
-        loss = tf.reduce_sum(loss, axis=1)
-        loss = loss / tf.to_float(self.inp_len)
+        with tf.variable_scope("tf_inference"):
+            self.transformer = transformer.Transformer(self.config, is_training)
+            self.attention_bias = model_utils.get_decoder_self_attention_bias(self.max_len)
+            encoder_outputs = self.transformer.encode(self.inp, self.attention_bias)
+            logits = self.transformer.embedding_softmax_layer.linear(encoder_outputs)
+            loss = model_utils.soft_cross_entropy_loss(logits, self.inp, self.config['label_smoothing'],
+                                                       self.config['vocab_size'])
+            weights = tf.sequence_mask(self.inp_len, self.max_len, dtype=tf.int32)
+            loss = loss * tf.to_float(weights)
+            loss = tf.reduce_sum(loss, axis=1)
+            loss = loss / tf.to_float(self.inp_len)
         return loss
 
     def loss_train(self, is_training):
@@ -213,4 +214,5 @@ class LMModel:
         loss = self.predict(False)
         loss = tf.reduce_mean(loss, name='lm_score')
         return loss
+
 
