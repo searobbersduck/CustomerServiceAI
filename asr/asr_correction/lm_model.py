@@ -192,7 +192,9 @@ class LMModel:
         self.inp_len = tf.placeholder(tf.int32, shape=[None], name='inp_len')
 
     def predict(self, is_training):
-        with tf.variable_scope("tf_inference"):
+        initializer = tf.variance_scaling_initializer(
+            self.params["initializer_gain"], mode="fan_avg", distribution="uniform")
+        with tf.variable_scope("tf_inference", reuse=tf.AUTO_REUSE, initializer=initializer):
             self.transformer = transformer.Transformer(self.config, is_training)
             self.attention_bias = model_utils.get_decoder_self_attention_bias(self.max_len)
             encoder_outputs = self.transformer.encode(self.inp, self.attention_bias)
