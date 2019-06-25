@@ -40,3 +40,6 @@
 
 ## 闲聊式机器人
 1. [github连接](https://github.com/searobbersduck/chatbot)
+
+## 子目录
+`asr`, 语音识别子模块，`asr/asr_correction`，利用transformer训练语言模型对语音识别的语句进行修正。
