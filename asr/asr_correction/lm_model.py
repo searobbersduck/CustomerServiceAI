@@ -11,6 +11,7 @@ import embedding_layer
 import tokenization
 from collections import defaultdict
 import collections
+import json
 
 
 BASE_PARAMS = defaultdict(
@@ -117,6 +118,34 @@ class LMWikiDataProcessor(DataProcessor):
                     examples.append(InputExample(guid, text))
         return examples
 
+class LMResumeDataProcessor(DataProcessor):
+    def get_train_examples(self, data_file):
+        return self._create_examples(data_file, 'train')
+    def _create_examples(self, infile, set_type):
+        examples = []
+        index = 0
+        with open(infile, 'r', encoding='utf8') as f:
+            for line in f.readlines():
+                # if index > 10000:
+                #     break
+                line = line.strip()
+                if line is None or len(line) == 0:
+                    continue
+                cont = json.loads(line)
+                if 'des' not in cont:
+                    continue
+                des = cont['des']
+                ss = des.split('\n')
+                for s in ss:
+                    s = s.strip()
+                    if len(s) <= 3:
+                        continue
+                    index += 1
+                    text = tokenization.convert_to_unicode(s)
+                    guid = '{}-{}'.format(set_type, index)
+                    examples.append(InputExample(guid, text))
+        return examples
+
 class LMDataSet:
     def __init__(self, vocab_file, max_len):
         self.vocab_file = vocab_file
@@ -171,8 +200,8 @@ class LMDataSet:
                     t = tf.to_int32(t)
                 example[name] = t
             return example
-        if not os.path.isfile(tffile):
-            return None
+        # if not os.path.isfile(tffile):
+        #     return None
         d = tf.data.TFRecordDataset(tffile)
         if is_training:
             d = d.repeat()
