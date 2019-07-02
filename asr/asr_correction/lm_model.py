@@ -126,8 +126,8 @@ class LMResumeDataProcessor(DataProcessor):
         index = 0
         with open(infile, 'r', encoding='utf8') as f:
             for line in f.readlines():
-                if index > 10000:
-                    break
+                # if index > 10000:
+                #     break
                 line = line.strip()
                 if line is None or len(line) == 0:
                     continue
