@@ -6,6 +6,7 @@ import tensorflow as tf
 import tokenization
 from optimization import create_optimizer
 import model_transfer as mtransfer
+from glob import glob
 
 config = lm_model.BASE_PARAMS
 tokenizer = tokenization.FullTokenizer('./model/vocab.txt')
@@ -14,6 +15,9 @@ config['max_length'] = 64
 config['batch_size'] = 64
 vocab_file = './model/vocab.txt'
 train_file = './train.tfrecord'
+
+files = glob('./data/train-*.tfrecord')
+train_file = files
 
 def make_feed_dict(model, inputs):
     dicts = {
